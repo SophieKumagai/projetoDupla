@@ -21,7 +21,8 @@ module.exports = {
       title: req.body.title,
       description: req.body.description,
       done: false, // O status inicial é sempre 'false'
-      priority: req.body.priority
+      priority: req.body.priority,
+      dueDate: req.body.dueDate
     });
     // Redireciona o usuário para a página inicial após a criação
     res.redirect('/tasks');
@@ -47,7 +48,8 @@ module.exports = {
         description: req.body.description,
         // Lógica para checkbox: se ele for marcado, req.body.done será 'on', senão será 'undefined'.
         done: req.body.done === 'on' ? true : false,
-        priority: req.body.priority
+        priority: req.body.priority,
+        dueDate: req.body.dueDate
       },
       { where: { id: id } } // Cláusula WHERE: atualize APENAS a tarefa com este id
     );
