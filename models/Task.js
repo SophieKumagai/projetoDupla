@@ -2,7 +2,7 @@ const { DataTypes } = require("sequelize");
 const db = require("../db/conn");
 
 const Task = db.define("Task", {
-    title: {
+title: {
     type: DataTypes.STRING,
     allowNull: false,
 },
@@ -13,6 +13,14 @@ done: {
     type: DataTypes.BOOLEAN,
     defaultValue: false,
 },
+priority: {
+    type: DataTypes.STRING,
+    defaultValue: 'Média',
+    allowNull: false,
+    validate: {
+        isIn: [['Baixa', 'Média', 'Alta']],
+    }
+}
 });
 
 module.exports = Task;
