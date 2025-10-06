@@ -13,6 +13,9 @@
         <option value="Média" {{#if (eq task.priority "Média")}}selected{{/if}}>Média</option>
         <option value="Alta" {{#if (eq task.priority "Alta")}}selected{{/if}}>Alta</option>
     </select>
+    <br>
+    <label>Prazo:</label><br>
+    <input type="date" name="dueDate" value="{{task.dueDate}}" />
     <br><br>
     <button type="submit">Salvar Alterações</button>
 </form>

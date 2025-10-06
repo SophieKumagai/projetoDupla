@@ -20,7 +20,14 @@ priority: {
     validate: {
         isIn: [['Baixa', 'Média', 'Alta']],
     }
-}
+},
+dueDate: {
+    type: DataTypes.DATE,
+    allowNull: false,
+    validate: {
+        isDate: true,
+    }
+},
 });
 
 module.exports = Task;
