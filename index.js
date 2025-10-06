@@ -1,9 +1,10 @@
 // 1. IMPORTAÇÕES
 const express = require("express");
-const exphbs = require("express-handlebars");
+const { engine } = require("express-handlebars");
 const conn = require("./db/conn");
 const Task = require("./models/Task");
 const taskRoutes = require("./routes/taskRoutes");
+
 
 // 2. INICIALIZAÇÃO DO EXPRESS
 const app = express();
@@ -12,7 +13,7 @@ const PORT = 3000;
 // 3. CONFIGURAÇÃO DE MIDDLEWARES
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.engine("handlebars", exphbs());
+app.engine("handlebars", engine());
 app.set("view engine", "handlebars");
 app.use(express.static("public"));
 
