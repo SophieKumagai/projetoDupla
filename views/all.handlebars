@@ -9,6 +9,7 @@
         {{else}}
             🕗 Pendente
         {{/if}}
+        - Prioridade: {{this.priority}} 
         <a href="/tasks/edit/{{this.id}}">Editar</a>
         <form style="display:inline;" method="post" action="/tasks/delete">
         <input type="hidden" name="id" value="{{this.id}}"/>
