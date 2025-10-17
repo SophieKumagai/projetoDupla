@@ -7,15 +7,20 @@
     <input type="text" name="description" value="{{task.description}}" /><br><br>
     <label for="done">Concluída?</label>
     <input type="checkbox" id="done" name="done" {{#if task.done}}checked{{/if}}/>
+    <br><br>
     <label>Prioridade:</label><br>
     <select name="priority" required>
         <option value="Baixa" {{#if (eq task.priority "Baixa")}}selected{{/if}}>Baixa</option>
         <option value="Média" {{#if (eq task.priority "Média")}}selected{{/if}}>Média</option>
         <option value="Alta" {{#if (eq task.priority "Alta")}}selected{{/if}}>Alta</option>
     </select>
-    <br>
+    <br><br>
     <label>Prazo:</label><br>
-    <input type="date" name="dueDate" value="{{task.dueDate}}" />
+    <input type="date" id="dueDate" name="dueDate" value="{{task.dueDate}}" />
+    <script>
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById("dueDate").setAttribute("min", today);
+    </script>
     <br><br>
     <button type="submit">Salvar Alterações</button>
 </form>

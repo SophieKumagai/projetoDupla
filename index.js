@@ -1,5 +1,6 @@
 const express = require("express");
 const exphbs = require("express-handlebars");
+const Handlebars = require("handlebars");
 const conn = require("./db/conn");
 const taskRoutes = require("./routes/taskRoutes");
 
@@ -8,13 +9,18 @@ const PORT = 3000;
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+Handlebars.registerHelper('eq', function(date, format) {
+    eq: (a, b) => a === b
+});
 app.engine(
-    "handlebars",
-    exphbs({
-        helpers: {
-            eq: (a, b) => a === b,
-        },
-    })
+  "handlebars",
+  exphbs.engine({
+    defaultLayout: "main",
+    runtimeOptions: {
+      allowProtoPropertiesByDefault: true,
+      allowProtoMethodsByDefault: true,
+    },
+  })
 );
 app.set("view engine", "handlebars");
 app.use(express.static("public"));

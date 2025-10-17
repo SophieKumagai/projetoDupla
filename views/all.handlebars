@@ -1,4 +1,9 @@
 <h2>Todas as Tarefas:</h2>
+<a href="/tasks?filter=concluidas"><button>Concluídas</button></a>
+<a href="/tasks?filter=pendentes"><button>Pendentes</button></a>
+<a href="/tasks"><button type="reset" class="btn-limpar">✖</button></a>
+<br>
+<br>
 {{#if tasks.length}}
     <ul class="task-list">
         {{#each tasks}}
