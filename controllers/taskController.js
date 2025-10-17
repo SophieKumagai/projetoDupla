@@ -2,13 +2,24 @@ const Task = require('../models/Task');
 
 module.exports = {
   async showTasks(req, res) {
-    const tasks = await Task.findAll({ raw: true });
+    const { filter } = req.query;
+
+    let whereCondition = {};
+    if (filter === 'concluidas') {
+      whereCondition.done = true;
+    } else if (filter === 'pendentes') {
+      whereCondition.done = false;
+    }
+
+    const tasks = await Task.findAll({ where: whereCondition, raw: true });
+
     const tasksWithClass = tasks.map((task) => {
       let priorityClass = 'priority-media';
       if (task.priority === 'Alta') priorityClass = 'priority-alta';
       else if (task.priority === 'Baixa') priorityClass = 'priority-baixa';
       return { ...task, priorityClass };
     });
+
     res.render('all', { tasks: tasksWithClass });
   },
 
@@ -22,16 +33,21 @@ module.exports = {
       description: req.body.description,
       done: false, // O status inicial é sempre 'false'
       priority: req.body.priority,
-      dueDate: req.body.dueDate[
+      dueDate: req.body.dueDate
     });
     res.redirect('/tasks');
   },
 
-  async editTask(req, res) {
-    const id = req.params.id;
-    const task = await Task.findByPk(id, { raw: true });
-    res.render('edit', { task });
-  },
+async editTask(req, res) {
+  const id = req.params.id;
+  const task = await Task.findByPk(id, { raw: true });
+
+  if (task && task.dueDate) {
+    task.dueDate = new Date(task.dueDate).toISOString().split('T')[0];
+  }
+
+  res.render('edit', { task });
+},
 
   async updateTask(req, res) {
     const id = req.body.id;

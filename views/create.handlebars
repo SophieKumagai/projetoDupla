@@ -12,7 +12,11 @@
     </select>
     <br>
     <label>Prazo:</label><br>
-    <input type="date" name="dueDate" />
+    <input type="date" name="dueDate" id="dueDate" />
+    <script>
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById("dueDate").setAttribute("min", today);
+    </script>
     <br><br>
     <button type="submit">Criar Tarefa</button>
 </form>
