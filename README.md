@@ -57,7 +57,7 @@ Aplicação web de gerenciamento de tarefas construída com **Node.js**, **Expre
 1. **Clone o repositório:**
 
 ```bash
-git clone https://github.com/SophieKumagai/projetoDupla
+git clone https://github.com/SophieKumagai/projetoDupla.git
 cd projetoDupla
 ```
 
