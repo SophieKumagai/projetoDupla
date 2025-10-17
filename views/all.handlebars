@@ -1,21 +1,25 @@
 <h2>Todas as Tarefas:</h2>
-<a href="/tasks?filter=concluidas"><button>Concluídas</button></a>
-<a href="/tasks?filter=pendentes"><button>Pendentes</button></a>
-<a href="/tasks"><button type="reset" class="btn-limpar">✖</button></a>
+
+<div class="filter-buttons">
+  <a href="/tasks?filter=concluidas"><button class="btn-filtro btn-concluidas">Concluídas</button></a>
+  <a href="/tasks?filter=pendentes"><button class="btn-filtro btn-pendentes">Pendentes</button></a>
+  <a href="/tasks"><button type="reset" class="btn-filtro btn-limpar">✖</button></a>
+</div>
+
 <br>
-<br>
+
 {{#if tasks.length}}
     <ul class="task-list">
         {{#each tasks}}
-            <li class="task-item {{this.priorityClass}} {{#if this.done}}task-done{{/if}}">
-                <div class="task-main">
+            <li class="task-item {{this.priorityClass}}">
+                <div class="task-main {{#if this.done}}task-done{{/if}}">
                     <div class="task-title">{{this.title}}</div>
                     <div class="task-desc">{{this.description}}</div>
                 </div>
                 <div class="task-meta">
                     <div class="task-status">{{#if this.done}}✅ Concluída{{else}}🕗 Pendente{{/if}}</div>
                     <div class="task-priority">Prioridade: <span class="priority-label">{{this.priority}}</span></div>
-                    <div class="task-priority">Prazo: <span class="priority-label">{{this.dueDate}}</span></div>
+                    <div class="task-priority">Prazo: <span class="priority-label">{{formatDate this.dueDate}}</span></div>
                     <div class="task-actions">
                         <a class="btn btn-edit" href="/tasks/edit/{{this.id}}">Editar</a>
                         <form style="display:inline;" method="post" action="/tasks/delete">

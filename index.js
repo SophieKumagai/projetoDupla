@@ -12,6 +12,14 @@ app.use(express.json());
 Handlebars.registerHelper('eq', function(date, format) {
     eq: (a, b) => a === b
 });
+Handlebars.registerHelper("formatDate", function (dateString) {
+  if (!dateString) return "";
+  const date = new Date(dateString);
+  const dia = String(date.getDate()).padStart(2, "0");
+  const mes = String(date.getMonth() + 1).padStart(2, "0");
+  const ano = date.getFullYear();
+  return `${dia}/${mes}/${ano}`;
+});
 app.engine(
   "handlebars",
   exphbs.engine({
