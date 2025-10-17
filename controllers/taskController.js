@@ -20,8 +20,9 @@ module.exports = {
     await Task.create({
       title: req.body.title,
       description: req.body.description,
-      done: false,
-      priority: req.body.priority
+      done: false, // O status inicial é sempre 'false'
+      priority: req.body.priority,
+      dueDate: req.body.dueDate[
     });
     res.redirect('/tasks');
   },
@@ -39,7 +40,8 @@ module.exports = {
         title: req.body.title,
         description: req.body.description,
         done: req.body.done === 'on' ? true : false,
-        priority: req.body.priority
+        priority: req.body.priority,
+        dueDate: req.body.dueDate
       },
       { where: { id: id } }
     );
