@@ -1,26 +1,27 @@
-// 1. IMPORTAÇÕES
 const express = require("express");
 const exphbs = require("express-handlebars");
 const conn = require("./db/conn");
-const Task = require("./models/Task");
 const taskRoutes = require("./routes/taskRoutes");
 
-// 2. INICIALIZAÇÃO DO EXPRESS
 const app = express();
 const PORT = 3000;
 
-// 3. CONFIGURAÇÃO DE MIDDLEWARES
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.engine("handlebars", exphbs());
+app.engine(
+    "handlebars",
+    exphbs({
+        helpers: {
+            eq: (a, b) => a === b,
+        },
+    })
+);
 app.set("view engine", "handlebars");
 app.use(express.static("public"));
 
-// 4. USO DAS ROTAS
 app.use("/tasks", taskRoutes);
 app.get("/", (req, res) => res.redirect("/tasks"));
 
-// 5. CONEXÃO COM O BANCO E INICIALIZAÇÃO DO SERVIDOR
 conn
 .sync()
 .then(() => {
